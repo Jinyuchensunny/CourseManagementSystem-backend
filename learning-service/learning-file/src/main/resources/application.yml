@@ -1,0 +1,22 @@
+server:
+  port: 8430
+spring:
+  application:
+    name: file-service
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+minio:
+  endpoint: http://localhost:9000
+  access-key: RL9GHW7AGGXGEQQDZ0W5
+  secret-key: FpbhioXJuYiRDlcjwZ++U8pD2+G6z4s7+iJ+vP2c
+  video-bucket-name: videos
+  cover-picture-bucket-name: cover-pictures
+  profile-picture-bucket-name: profile-pictures
+gateway:
+  address: http://localhost:8081

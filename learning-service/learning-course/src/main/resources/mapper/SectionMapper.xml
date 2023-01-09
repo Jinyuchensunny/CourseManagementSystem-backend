@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.learning.course.dao.SectionDao">
+
+    <resultMap type="cn.linter.learning.course.entity.Section" id="SectionMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="sort" column="sort"/>
+
+        <result property="courseId" column="course_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--通过ID查询单个章节-->
+    <select id="selectById" resultMap="SectionMap">
+        select id, title, sort, course_id, create_time, update_time
+        from section
+        where id = #{id}
+    </select>
+
+    <!--查询所有章节-->
+    <select id="list" resultMap="SectionMap">
+        select id, title, sort, course_id, create_time, update_time
+        from section
+        order by sort
+    </select>
+
+    <!--通过课程ID查询所有章节-->
+    <select id="listByCourseId" resultMap="SectionMap">
+        select id, title, sort, course_id, create_time, update_time
+        from section
+        where course_id = #{courseId}
+        order by sort
+    </select>
+
+    <select id="listInfoByCourseId" resultMap="SectionMap">
+        select id, title, sort, course_id, create_time, update_time
+        from section
+        where course_id = #{courseId}
+        order by sort
+    </select>
+
+    <!--插入单个章节-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into section(title, sort, course_id, create_time, update_time)
+        values (#{title}, #{sort},  #{courseId}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--更新章节-->
+    <update id="update">
+        update section
+        set
+        <if test="title != null and title != ''">
+            title = #{title},
+        </if>
+        <if test="sort != null and sort != ''">
+            sort = #{sort},
+        </if>
+
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--删除章节-->
+    <delete id="delete">
+        delete
+        from section
+        where id = #{id}
+    </delete>
+
+</mapper>
